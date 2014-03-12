@@ -6,4 +6,4 @@ Doesn't work on Visual Studio. Probably never will.
 
 ## License
 
-Licensed under MIT. 
+Licensed under the same license as SFML, zlib/png.
