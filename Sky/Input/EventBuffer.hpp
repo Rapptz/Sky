@@ -23,6 +23,7 @@
 #ifndef SKY_EVENTBUFFER_HPP
 #define SKY_EVENTBUFFER_HPP
 
+#include <SFML/Window/Event.hpp>
 #include <set>
 #include <utility>
 
