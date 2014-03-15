@@ -25,5 +25,6 @@
 
 #include "Graphics/AnimatedSprite.hpp"
 #include "Graphics/ResourceCache.hpp"
+#include "Graphics/TileMap.hpp"
 
 #endif // SKY_GRAPHICS_HPP
