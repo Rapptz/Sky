@@ -15,8 +15,10 @@
 #include "../libs/pugixml.hpp"
 
 namespace sky {
+using PropertyMap = std::unordered_map<std::string, std::string>;
+
 struct Object {
-    std::unordered_map<std::string, std::string> properties;
+    PropertyMap properties;
     std::vector<sf::Vector2i> points;
     sf::FloatRect rect;
     std::string name = "None";
@@ -82,11 +84,17 @@ struct Layer {
     }
 };
 
+struct Tile {
+    unsigned id = 0;
+    PropertyMap properties;
+};
+
 class TileMap : public sf::Drawable, public sf::Transformable {
 private:
     std::vector<sf::FloatRect> solidObjects;
     std::vector<Layer> layers;
     std::vector<Object> objects;
+    std::vector<Tile> tiles;
     sf::Texture spritesheet;
     unsigned width = 0;
     unsigned height = 0;
@@ -146,6 +154,23 @@ public:
 
         if(!spritesheet.loadFromFile(imagePath)) {
             return false;
+        }
+
+        // Tile info
+        for(auto node = children.child("tile"); node; node.next_sibling("tile")) {
+            Tile tile;
+            tile.id = node.attribute("id").as_uint();
+
+            auto properties = node.child("properties");
+
+            if(properties) {
+                for(auto property = properties.child("property"); property; property = property.next_sibling()) {
+                    tile.properties.emplace(property.attribute("name").as_string(),
+                                            property.attribute("value").as_string());
+                }
+            }
+
+            tiles.emplace_back(std::move(tile));
         }
 
         // Initialize layers
@@ -260,6 +285,50 @@ public:
         }
 
         return true;
+    }
+
+    template<typename Predicate>
+    std::vector<Object> getObjects(Predicate pred) const {
+        std::vector<Object> result;
+        for(auto&& obj : objects) {
+            if(pred(obj)) {
+                result.emplace_back(std::move(obj));
+            }
+        }
+        return result;
+    }
+
+    std::vector<Object> getObjects() const {
+        return objects;
+    }
+
+    template<typename Predicate>
+    std::vector<Tile> getTiles(Predicate pred) const {
+        std::vector<Tile> result;
+        for(auto&& tile : tiles) {
+            if(pred(tile)) {
+                result.emplace_back(std::move(tile));
+            }
+        }
+        return result;
+    }
+
+    std::vector<Tile> getTiles() const {
+        return tiles;
+    }
+
+    bool tileHasProperty(unsigned id, const std::string& str) const {
+        auto predicate = [&](const Tile& tile) {
+            return tile.id == id && tile.properties.count(str);
+        };
+
+        for(auto&& tile : tiles) {
+            if(predicate(tile)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 };
 } // sky
