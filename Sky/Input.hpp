@@ -20,9 +20,9 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 
-#ifndef INPUT_HPP
-#define INPUT_HPP
+#ifndef SKY_INPUT_HPP
+#define SKY_INPUT_HPP
 
 #include "Input/ActionMap.hpp"
 
-#endif // INPUT_HPP
+#endif // SKY_INPUT_HPP
