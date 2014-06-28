@@ -12,6 +12,12 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
+
+#ifndef SKY_COMPILE_PUGIXML
+#define PUGIXML_HEADER_ONLY
+#include "pugixml.cpp"
+#endif
+
 #include "../libs/pugixml.hpp"
 
 namespace sky {

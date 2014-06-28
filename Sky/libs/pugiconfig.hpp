@@ -38,8 +38,8 @@
 // #define PUGIXML_MEMORY_XPATH_PAGE_SIZE 4096
 
 // Uncomment this to switch to header-only version
- #define PUGIXML_HEADER_ONLY
- #include "pugixml.cpp"
+ // #define PUGIXML_HEADER_ONLY
+ // #include "pugixml.cpp"
 
 // Uncomment this to enable long long support
  #define PUGIXML_HAS_LONG_LONG
@@ -60,7 +60,7 @@
  *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
