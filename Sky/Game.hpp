@@ -40,7 +40,7 @@ public:
 
     virtual void render() = 0;
     virtual void process() = 0;
-    virtual void update(float dt) = 0;
+    virtual void update(sf::Time dt) = 0;
 
     void quit() {
         running = false;
@@ -56,7 +56,7 @@ public:
             process();
 
             while(deltaTime >= timePerFrame) {
-                update(deltaTime.asSeconds());
+                update(deltaTime);
                 deltaTime -= timePerFrame;
             }
 
