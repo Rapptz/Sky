@@ -70,7 +70,7 @@ public:
             return nullptr;
         }
 
-        return dynamic_cast<T*>(it->second.get());
+        return static_cast<T*>(it->second.get());
     }
 
     template<typename T, typename... Args>
