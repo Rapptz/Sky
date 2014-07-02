@@ -23,7 +23,24 @@
 #ifndef SKY_COMPONENT_HPP
 #define SKY_COMPONENT_HPP
 
-#include "Component/Entity.hpp"
-#include "Component/System.hpp"
+#include <type_traits>
+
+namespace sky {
+struct Component {
+    virtual ~Component() = default;
+};
+
+template<typename T>
+constexpr bool is_component() noexcept {
+    static_assert(std::is_base_of<Component, T>::value, "Type must be a component");
+    return true;
+}
+
+template<typename... Args>
+constexpr bool are_components() {
+    using swallow = bool[];
+    return (void(swallow{ (is_component<Args>(), true)... }), true);
+}
+} // sky
 
 #endif // SKY_COMPONENT_HPP

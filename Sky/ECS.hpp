@@ -20,27 +20,10 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 
-#ifndef SKY_BASE_HPP
-#define SKY_BASE_HPP
+#ifndef SKY_ECS_HPP
+#define SKY_ECS_HPP
 
-#include <type_traits>
+#include "ECS/Entity.hpp"
+#include "ECS/System.hpp"
 
-namespace sky {
-struct Component {
-    virtual ~Component() = default;
-};
-
-template<typename T>
-constexpr bool is_component() noexcept {
-    static_assert(std::is_base_of<Component, T>::value, "Type must be a component");
-    return true;
-}
-
-template<typename... Args>
-constexpr bool are_components() {
-    using swallow = bool[];
-    return (void(swallow{ (is_component<Args>(), true)... }), true);
-}
-} // sky
-
-#endif // SKY_BASE_HPP
+#endif // SKY_ECS_HPP

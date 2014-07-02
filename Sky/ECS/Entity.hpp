@@ -23,7 +23,7 @@
 #ifndef SKY_ENTITY_HPP
 #define SKY_ENTITY_HPP
 
-#include "Base.hpp"
+#include "Component.hpp"
 #include <map>
 #include <typeindex>
 #include <typeinfo>
