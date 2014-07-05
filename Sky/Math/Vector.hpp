@@ -37,6 +37,52 @@ template<typename Vector>
 inline auto length(const Vector& vector) -> decltype(std::sqrt(squaredLength(vector))) {
     return std::sqrt(squaredLength(vector));
 }
+
+template<typename Vector>
+inline auto lerp(const Vector& from, const Vector& to, double t) -> decltype(from * t + (to * (1 - t))) {
+    return from * t + (to * (1 - t));
+}
+
+template<typename T>
+inline auto direction(const sf::Vector2<T>& from, const sf::Vector2<T>& to) -> decltype(std::atan2(to.y - from.y, to.x - from.x)) {
+    return std::atan2(to.y - from.y, to.x - from.x);
+}
+
+template<typename Vector>
+inline auto angle(const Vector& u, const Vector& v) -> decltype(std::acos(dot(u, v) / (length(u) * length(v)))) {
+    return std::acos(dot(u, v) / (length(u) * length(v)));
+}
+
+template<typename Vector>
+inline bool isUnit(const Vector& vector) {
+    return squaredLength(vector) == 1;
+}
+
+template<typename Vector>
+inline bool perpendicular(const Vector& lhs, const Vector& rhs) {
+    return dot(lhs, rhs) == 0;
+}
+
+template<typename Vector>
+inline Vector normalized(Vector vector) {
+    auto&& len = length(vector);
+
+    if(len != 0 && len != 1) {
+        vector /= len;
+    }
+
+    return vector;
+}
+
+template<typename Vector>
+inline auto distance(const Vector& from, const Vector& to) -> decltype(length(from - to)) {
+    return length(from - to);
+}
+
+template<typename Vector>
+inline auto squaredDistance(const Vector& from, const Vector& to) -> decltype(squaredLength(from - to)) {
+    return squaredLength(from - to);
+}
 } // sky
 
 #endif // SKY_VECTOR_HPP
